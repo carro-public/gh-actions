@@ -18,7 +18,6 @@ async function main() {
             commit_message: `Auto merge down from ${headBranch}`,
         });
         
-        core.info(response.data.sha)
         core.setOutput('result', 'OK');
         
         return response
