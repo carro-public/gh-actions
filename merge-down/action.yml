@@ -1,0 +1,19 @@
+name: "Merge Down"
+description: "Merge branch"
+author: "DatPM"
+inputs:
+  github_token:
+    description: "Required for permission to tag the repo."
+    required: true
+  base:
+    required: true
+    description: "Base Branch"
+  head:
+    required: true
+    description: "Head Branch"
+outputs:
+  result:
+    description: "OK | Resolve Conflict Branch"
+runs:
+  using: "node20"
+  main: "dist/main.js"
