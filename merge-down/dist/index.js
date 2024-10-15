@@ -53,14 +53,17 @@ async function main() {
         // Check for a conflict error (status code 409)
         if (error.status === 409) {
             console.error(`Merge conflict: Could not merge ${headBranch} into ${baseBranch}.`);
-            const newBranch = await createBranch(`${headBranch}_sync_`, headBranch, octokit);
+            const formattedDate = new Date().toLocaleDateString('en-GB').replace(/\//g, '_');
+            const newBranch = await createBranch(`${headBranch}_sync_${formattedDate}`, headBranch, octokit);
             // @ts-ignore
             core.setOutput('result', newBranch.data.ref);
+            core.setFailed('Conflict needs to be resolved, abort merging down');
         }
         else {
             // Handle other possible errors
             core.setOutput('result', 'FAILED');
             console.error(`Error merging branches: ${error.message}`);
+            core.setFailed('Unknown error');
         }
     }
 }
