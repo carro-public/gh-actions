@@ -11,6 +11,9 @@ inputs:
   head:
     required: true
     description: "Head Branch"
+  commit_message:
+    required: false
+    description: "Message for merge commit"
 outputs:
   result:
     description: "OK | Resolve Conflict Branch"
