@@ -36,6 +36,7 @@ async function main() {
     const baseBranch = core.getInput('base');
     const headBranch = core.getInput('head');
     const token = core.getInput('github_token');
+    const commitMessage = core.getInput('commit_message');
     const octokit = (0, github_1.getOctokit)(token);
     try {
         const response = await octokit.rest.repos.merge({
@@ -43,9 +44,8 @@ async function main() {
             repo: github_1.context.repo.repo,
             base: baseBranch,
             head: headBranch,
-            commit_message: `Auto merge down from ${headBranch}`,
+            commit_message: commitMessage ? commitMessage : `Auto merge down from ${headBranch}`,
         });
-        core.info(response.data.sha);
         core.setOutput('result', 'OK');
         return response;
     }
